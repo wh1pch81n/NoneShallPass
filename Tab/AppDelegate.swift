@@ -8,6 +8,8 @@
 
 import UIKit
 
+var mayPass = false
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -44,3 +46,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+class TabDelegate: NSObject, UITabBarControllerDelegate {
+    @IBOutlet weak var tabController: UITabBarController! {
+        willSet { newValue?.delegate = self }
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let _ = viewController as? SecondViewController {
+            print("pass? ", mayPass)
+            return mayPass
+        }
+        return true
+    }
+}
